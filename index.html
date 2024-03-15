@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Enables Responsive Web Design -->
+    <title>JS EVAL TOOL</title>
+
+    <script>
+
+        function executeJs() {
+
+            // clear text
+            var currentText = document.getElementById("customOutputParagraph");
+            currentText.innerHTML = "";
+
+            // execute js
+            var jsStr = document.getElementById("jsTextboxId");
+            console.log("executing jsStr: " + jsStr.value);
+
+            try {
+                eval(jsStr.value);
+            } catch (e) {
+                printNewLineCustom("error when executing js:" + e);
+            }
+
+        }
+
+        function clearTextbox() {
+            document.getElementById("jsTextboxId").value = "";
+        }
+
+        function pasteExampleCode() {
+            document.getElementById("jsTextboxId").value = "printNewLineCustom(\"1\"); \nprintNewLineCustom(\"2\"); ";
+        }
+
+        function printNewLineCustom(str) {
+            console.log("printNewLineCustom: " + str);
+            var currentText = document.getElementById("customOutputParagraph");
+            var textNew = document.createTextNode(str);
+            var br = document.createElement("br");
+            currentText.appendChild(textNew);
+            currentText.appendChild(br);
+        }
+    </script>
+</head>
+
+<body>
+
+    <table border="1">
+
+        <tr>
+            <td>JS eval tool</td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="execute Javascript inside the textbox" onclick="executeJs()"></td>
+        </tr>
+
+        <tr>
+            <td><input type="button" value="clear the textbox" onclick="clearTextbox()"></td>
+        </tr>
+
+        <tr>
+            <td>
+                Test code:
+                <br />
+                printNewLineCustom("1"); 
+                <br />
+                printNewLineCustom("2"); 
+                <br />
+                <button onclick="pasteExampleCode()">paste example code to textbox</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td><textarea cols="26" rows="4" name="jsTextboxName" id="jsTextboxId"></textarea></td>
+        </tr>
+
+        <tr>
+            <td>Log printed via printNewLineCustom function:</td>
+        </tr>
+
+        <tr>
+            <td>
+                <p id="customOutputParagraph"></p>
+            </td>
+        </tr>
+
+</body>
+
+</html>
